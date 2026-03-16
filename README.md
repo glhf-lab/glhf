@@ -4,7 +4,7 @@
 [![Node](https://img.shields.io/badge/Node-18--20-green.svg)](https://nodejs.org/)
 [![Alpha](https://img.shields.io/badge/Status-Alpha-orange.svg)](https://glhf-lab.github.io/glhf/)
 
-An open-source data donation platform for gameplay behavior research. GLHF collects consented play data from Steam via account linking, manages study participation workflows, and integrates with survey platforms (Qualtrics, Prolific).
+An open-source research platform for collecting digital trace data from gaming platforms via data donation, built with Strapi and Next.js. GLHF collects play data from Steam via account linking, manages study participation workflows, and integrates with survey platforms (Qualtrics, Prolific).
 
 > **[Read the documentation →](https://glhf-lab.github.io/glhf/)**
 
