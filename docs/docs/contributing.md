@@ -56,8 +56,7 @@ GLHF follows a consistent pattern for integrations:
 
 ## Code Style
 
-- **Backend:** Single quotes, semicolons, 2-space indent
-- **Frontend:** Double quotes, no semicolons, 2-space indent, Prettier
+The backend does not currently have a linter configured. The frontend uses ESLint and Prettier.
 
 ## Submitting Changes
 
