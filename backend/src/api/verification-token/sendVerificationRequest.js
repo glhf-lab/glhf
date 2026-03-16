@@ -17,7 +17,6 @@ const sendVerificationRequest = async (params) => {
   const { identifier, url, provider, token } = params
   const { host } = new URL(url)
   const { studyName, supportEmail } = await getStudyConfig();
-  console.log({env: process.env.EMAIL_SERVER_HOST})
   if(process.env.NODE_ENV == "development" && process.env.EMAIL_SERVER_HOST == "") {
     console.log(text({ url, host }))
     return { ok: true }
