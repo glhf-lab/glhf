@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "prolific_invites",
+  "info": {
+    "singularName": "prolific-invite",
+    "pluralName": "prolific-invites",
+    "displayName": "Prolific Invites",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "prolificIds": {
+      "type": "text"
+    },
+    "addedToProlific": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

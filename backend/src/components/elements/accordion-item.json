@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_elements_accordion_items",
+  "info": {
+    "displayName": "Accordion Item",
+    "icon": "angle-down",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "showTo": {
+      "type": "enumeration",
+      "enum": [
+        "everyone",
+        "public",
+        "prolific"
+      ],
+      "default": "everyone"
+    }
+  }
+}

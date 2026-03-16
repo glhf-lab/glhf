@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_steam_connected_fails",
+  "info": {
+    "displayName": "Connected Fail",
+    "icon": "thumbs-down",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "chip": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "feedbackFoundOwnedGames": {
+      "type": "string"
+    },
+    "feedbackNoOwnedGames": {
+      "type": "string"
+    },
+    "feedbackHasPlaytimePublic": {
+      "type": "string"
+    },
+    "feedbackHasPlaytimePrivate": {
+      "type": "string"
+    },
+    "feedbackFoundRecentlyPlayedGames": {
+      "type": "string"
+    },
+    "feedbackNoRecentlyPlayedGames": {
+      "type": "string"
+    },
+    "buttonLabelRecheck": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_logos",
+  "info": {
+    "displayName": "Logos",
+    "icon": "archway",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "logos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.logos"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

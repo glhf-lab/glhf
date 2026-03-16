@@ -1,0 +1,23 @@
+{
+  "name": "glhf",
+  "author": {
+    "name": "Kristoffer Magnusson"
+  },
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "develop:backend": "yarn --cwd backend develop",
+    "develop:frontend": "wait-on http://localhost:1337/admin && yarn --cwd frontend develop",
+    "develop": "cross-env FORCE_COLOR=1 npm-run-all -l -p develop:*",
+    "clear": "cd frontend && rm -rf .next && rm -rf cache",
+    "docs:install": "bash -c 'cd docs && yarn install'",
+    "docs:start": "bash -c 'cd docs && yarn start'",
+    "docs:build": "bash -c 'cd docs && yarn build'"
+  },
+  "devDependencies": {
+    "cross-env": "7.0.3",
+    "npm-run-all": "4.1.5",
+    "wait-on": "^6.0.1"
+  },
+  "packageManager": "yarn@4.0.2"
+}

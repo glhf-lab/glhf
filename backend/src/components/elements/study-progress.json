@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_elements_study_progresses",
+  "info": {
+    "displayName": "Study progress",
+    "icon": "arrow-alt-circle-right",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "notLinked": {
+      "type": "richtext"
+    },
+    "linkedNotActive": {
+      "type": "richtext"
+    },
+    "active": {
+      "type": "richtext"
+    },
+    "activeProlific": {
+      "type": "richtext"
+    },
+    "surveySent": {
+      "type": "richtext"
+    },
+    "surveySentProlific": {
+      "type": "richtext"
+    },
+    "studyCompleted": {
+      "type": "richtext"
+    }
+  }
+}

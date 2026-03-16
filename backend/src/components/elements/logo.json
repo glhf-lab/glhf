@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_elements_sitelogo",
+  "info": {
+    "displayName": "Site logo",
+    "icon": "picture",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "logoImg": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "textTop": {
+      "type": "string"
+    },
+    "textBottom": {
+      "type": "string"
+    }
+  }
+}

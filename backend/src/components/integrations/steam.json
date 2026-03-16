@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_integrations_steams",
+  "info": {
+    "displayName": "Steam",
+    "icon": "address-book",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "notConnected": {
+      "type": "component",
+      "repeatable": false,
+      "component": "steam.not-connected"
+    },
+    "connectedSuccess": {
+      "type": "component",
+      "repeatable": false,
+      "component": "steam.connected-success"
+    },
+    "connectedFail": {
+      "type": "component",
+      "repeatable": false,
+      "component": "steam.connected-fail"
+    },
+    "show": {
+      "type": "boolean"
+    }
+  }
+}

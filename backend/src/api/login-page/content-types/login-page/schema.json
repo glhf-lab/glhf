@@ -1,0 +1,42 @@
+{
+  "kind": "singleType",
+  "collectionName": "login_pages",
+  "info": {
+    "singularName": "login-page",
+    "pluralName": "login-pages",
+    "displayName": "Login page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "metadata": {
+      "type": "component",
+      "repeatable": false,
+      "component": "meta.metadata"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "FAQ": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.accordion"
+    },
+    "closeSignUp": {
+      "displayName": "Close sign up",
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.close-sign-up"
+    },
+    "showLoginSection": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "steam_users",
+  "info": {
+    "singularName": "steam-user",
+    "pluralName": "steam-users",
+    "displayName": "Steam User",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "steamid": {
+      "type": "string"
+    },
+    "steamidHashed": {
+      "type": "string"
+    },
+    "timecreated": {
+      "type": "biginteger"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "communityvisibilitystate": {
+      "type": "integer"
+    },
+    "profilestate": {
+      "type": "integer"
+    },
+    "entityTag": {
+      "type": "string"
+    },
+    "steamApiCache": {
+      "type": "json"
+    },
+    "steam_owned_games_sync_jobs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::steam-owned-games-sync-job.steam-owned-games-sync-job",
+      "mappedBy": "steamUser"
+    },
+    "steamProfileSyncJobs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::steam-profile-sync-job.steam-profile-sync-job",
+      "mappedBy": "steamUser"
+    },
+    "lastProfileSyncAt": {
+      "type": "datetime"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_discord_connected_fails",
+  "info": {
+    "displayName": "Connected Fail",
+    "icon": "thumbs-down"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "chip": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_discord_not_connecteds",
+  "info": {
+    "displayName": "Not Connected",
+    "icon": "angry",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titleNotConnected": {
+      "type": "string"
+    },
+    "descriptionNotConnected": {
+      "type": "text"
+    },
+    "buttonLabelNotConnected": {
+      "type": "string"
+    }
+  }
+}

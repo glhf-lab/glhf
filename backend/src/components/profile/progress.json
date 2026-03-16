@@ -1,0 +1,45 @@
+{
+  "collectionName": "components_profile_progresses",
+  "info": {
+    "displayName": "progress",
+    "icon": "arrowRight"
+  },
+  "options": {},
+  "attributes": {
+    "showLinkStep": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "linkStepCompletedLabel": {
+      "type": "richtext"
+    },
+    "linkStepNotCompletedLabel": {
+      "type": "richtext"
+    },
+    "showCheckPrivacyStep": {
+      "type": "boolean"
+    },
+    "checkPrivacyStepCompletedLabel": {
+      "type": "richtext"
+    },
+    "checkPrivacyStepNotCompletedLabel": {
+      "type": "richtext"
+    },
+    "showSurveyStep": {
+      "type": "boolean"
+    },
+    "surveyStepCompletedLabel": {
+      "type": "richtext"
+    },
+    "surveyStepNotCompletedLabel": {
+      "type": "richtext"
+    },
+    "showStudyCompletedStep": {
+      "type": "boolean"
+    },
+    "studyCompletedLabel": {
+      "type": "richtext"
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "kind": "collectionType",
+  "collectionName": "up_users",
+  "info": {
+    "name": "user",
+    "description": "",
+    "singularName": "user",
+    "pluralName": "users",
+    "displayName": "User"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "email": {
+      "type": "string",
+      "configurable": false,
+      "required": false,
+      "private": true
+    },
+    "emailHashed": {
+      "type": "string",
+      "configurable": false,
+      "required": false,
+      "private": true
+    },
+    "provider": {
+      "type": "string",
+      "configurable": false
+    },
+    "confirmed": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false
+    },
+    "blocked": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false
+    },
+    "role": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.role",
+      "inversedBy": "users",
+      "configurable": false
+    },
+    "uuid": {
+      "type": "string",
+      "unique": true
+    },
+    "steamLinked": {
+      "type": "boolean"
+    },
+    "steamActivated": {
+      "type": "boolean"
+    },
+    "discordLinked": {
+      "type": "boolean"
+    },
+    "requiredAccountsLinked": {
+      "type": "boolean"
+    },
+    "steamPrivate": {
+      "type": "boolean"
+    },
+    "steamHasRecentPlayedGames": {
+      "type": "boolean"
+    },
+    "steamHasOwnedGames": {
+      "type": "boolean"
+    },
+    "steamHasOwnedGamesPlaytime": {
+      "type": "boolean"
+    },
+    "steamHasPlaytimePublic": {
+      "type": "boolean"
+    },
+    "activationDate": {
+      "type": "datetime"
+    },
+    "surveySendDate": {
+      "type": "datetime"
+    },
+    "surveyActivationDate": {
+      "type": "datetime"
+    },
+    "qualtricsDistributionJson": {
+      "type": "json",
+      "private": true
+    },
+    "qualtricsDistributionLink": {
+      "type": "string"
+    },
+    "qualtricsContactLookupId": {
+      "type": "string",
+      "private": true
+    },
+    "qualtricsId": {
+      "type": "string",
+      "private": true
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "utcOffset": {
+      "type": "integer"
+    },
+    "consentedToResearch": {
+      "type": "boolean"
+    },
+    "dataDeletionRequest": {
+      "type": "boolean",
+      "default": false
+    },
+    "studyEndDate": {
+      "type": "datetime"
+    },
+    "surveyLinkExpirationDate": {
+      "type": "datetime"
+    },
+    "studyCompleted": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

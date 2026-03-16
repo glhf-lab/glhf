@@ -1,0 +1,50 @@
+{
+  "kind": "singleType",
+  "collectionName": "profiles",
+  "info": {
+    "singularName": "profile",
+    "pluralName": "profiles",
+    "displayName": "Profile Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "component",
+      "repeatable": false,
+      "component": "meta.metadata"
+    },
+    "accounts": {
+      "type": "dynamiczone",
+      "components": [
+        "integrations.steam",
+        "integrations.discord"
+      ]
+    },
+    "FAQ": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.accordion"
+    },
+    "researchConsent": {
+      "type": "richtext",
+      "required": true
+    },
+    "deleteAccount": {
+      "type": "component",
+      "repeatable": false,
+      "component": "profile.account-data"
+    },
+    "feedback": {
+      "type": "component",
+      "repeatable": true,
+      "component": "profile.feedback"
+    }
+  }
+}

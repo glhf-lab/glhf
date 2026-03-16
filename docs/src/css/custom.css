@@ -1,0 +1,91 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Mermaid light mode: color-coded nodes by role */
+.docusaurus-mermaid-container .node.researcher rect,
+.docusaurus-mermaid-container .node.researcher polygon {
+  fill: #dbeafe !important;
+  stroke: #93c5fd !important;
+}
+
+.docusaurus-mermaid-container .node.participant rect,
+.docusaurus-mermaid-container .node.participant polygon,
+.docusaurus-mermaid-container .node.participant circle {
+  fill: #fef3c7 !important;
+  stroke: #fcd34d !important;
+}
+
+.docusaurus-mermaid-container .node.automated rect,
+.docusaurus-mermaid-container .node.automated polygon {
+  fill: #d1fae5 !important;
+  stroke: #6ee7b7 !important;
+}
+
+/* Mermaid dark mode: colorful nodes with white text for readability */
+[data-theme='dark'] .docusaurus-mermaid-container .node .label {
+  color: #ffffff !important;
+}
+
+[data-theme='dark'] .docusaurus-mermaid-container .node.researcher rect,
+[data-theme='dark'] .docusaurus-mermaid-container .node.researcher polygon {
+  fill: #1e3a5f !important;
+  stroke: #3b82f6 !important;
+}
+
+[data-theme='dark'] .docusaurus-mermaid-container .node.participant rect,
+[data-theme='dark'] .docusaurus-mermaid-container .node.participant polygon,
+[data-theme='dark'] .docusaurus-mermaid-container .node.participant circle {
+  fill: #422006 !important;
+  stroke: #f59e0b !important;
+}
+
+[data-theme='dark'] .docusaurus-mermaid-container .node.automated rect,
+[data-theme='dark'] .docusaurus-mermaid-container .node.automated polygon {
+  fill: #064e3b !important;
+  stroke: #34d399 !important;
+}
+
+[data-theme='dark'] .docusaurus-mermaid-container .node.dashed rect,
+[data-theme='dark'] .docusaurus-mermaid-container .node.dashed polygon {
+  fill: #2e6478 !important;
+  stroke: #3a7a8e !important;
+}
+
+/* Mermaid dark mode: sequence diagram notes */
+[data-theme='dark'] .docusaurus-mermaid-container .note {
+  fill: #2a4a5a !important;
+  stroke: #3a6a7a !important;
+}
+
+[data-theme='dark'] .docusaurus-mermaid-container .noteText,
+[data-theme='dark'] .docusaurus-mermaid-container .noteText > tspan {
+  fill: #e0e0e0 !important;
+}

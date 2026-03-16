@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_profile_feedbacks",
+  "info": {
+    "displayName": "Feedback",
+    "icon": "hourglass-start",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "provider": {
+      "type": "enumeration",
+      "enum": [
+        "prolific",
+        "public",
+        "qualtrics"
+      ]
+    },
+    "notLinked": {
+      "type": "richtext"
+    },
+    "linkedNotActive": {
+      "type": "richtext"
+    },
+    "active": {
+      "type": "richtext"
+    },
+    "surveySent": {
+      "type": "richtext"
+    },
+    "studyCompleted": {
+      "type": "richtext"
+    },
+    "progress": {
+      "type": "component",
+      "repeatable": false,
+      "component": "profile.progress"
+    }
+  }
+}

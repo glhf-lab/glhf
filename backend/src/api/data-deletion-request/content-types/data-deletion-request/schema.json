@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "data_deletion_requests",
+  "info": {
+    "singularName": "data-deletion-request",
+    "pluralName": "data-deletion-requests",
+    "displayName": "Data Deletion Requests",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "userId": {
+      "type": "integer",
+      "required": true,
+      "unique": true
+    },
+    "discord_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::discord-user.discord-user"
+    },
+    "steam_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::steam-user.steam-user"
+    },
+    "users_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "dataDeleted": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

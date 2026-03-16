@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_discord_connected_successes",
+  "info": {
+    "displayName": "Connected Success",
+    "icon": "thumbs-up",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "chip": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

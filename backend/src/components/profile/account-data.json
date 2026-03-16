@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_profile_account_data",
+  "info": {
+    "displayName": "Account data",
+    "icon": "user",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "header": {
+      "type": "string"
+    },
+    "withdrawDescription": {
+      "type": "richtext"
+    },
+    "deleteDataDescription": {
+      "type": "richtext"
+    },
+    "deleteDataModal": {
+      "type": "richtext"
+    },
+    "withdrawHeader": {
+      "type": "string"
+    },
+    "deleteDataHeader": {
+      "type": "string"
+    },
+    "withdrawButtonLabel": {
+      "type": "string"
+    },
+    "deleteDataButtonLabel": {
+      "type": "string"
+    },
+    "deleteDataModalHeader": {
+      "type": "string"
+    },
+    "deleteDataModalButtonCancelLabel": {
+      "type": "string"
+    },
+    "deleteDataModalButtonDeleteLabel": {
+      "type": "string"
+    }
+  }
+}

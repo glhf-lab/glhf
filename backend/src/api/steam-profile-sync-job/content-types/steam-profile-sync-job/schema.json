@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "steam_profile_sync_jobs",
+  "info": {
+    "singularName": "steam-profile-sync-job",
+    "pluralName": "steam-profile-sync-jobs",
+    "displayName": "Steam Profile Sync Job",
+    "description": "Job to fetch and update a user's Steam profile information."
+  },
+  "options": {
+    "draftAndPublish": false,
+    "comment": ""
+  },
+  "attributes": {
+    "steamUser": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::steam-user.steam-user",
+      "inversedBy": "steamProfileSyncJobs"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed",
+        "retry"
+      ],
+      "default": "pending",
+      "required": true
+    },
+    "attempts": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    },
+    "lastAttemptAt": {
+      "type": "datetime"
+    },
+    "errorMessage": {
+      "type": "text"
+    },
+    "jobDetails": {
+      "type": "json"
+    }
+  }
+} 

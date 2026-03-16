@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "steam_owned_games_sync_jobs",
+  "info": {
+    "singularName": "steam-owned-games-sync-job",
+    "pluralName": "steam-owned-games-sync-jobs",
+    "displayName": "Steam Owned Games Sync Job",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed",
+        "retry"
+      ],
+      "default": "pending"
+    },
+    "attempts": {
+      "type": "integer",
+      "default": 0
+    },
+    "lastAttemptAt": {
+      "type": "datetime"
+    },
+    "errorMessage": {
+      "type": "text"
+    },
+    "steamUser": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::steam-user.steam-user",
+      "inversedBy": "steam_owned_games_sync_jobs"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 13px;
+  @apply text-gray-900;
+}
+
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+@media screen and (min-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+a:focus-visible, .rich-text-hero a:focus-visible {
+  @apply no-underline bg-highlight text-zinc-900 dark:text-zinc-900 outline-none shadow-[0_-2px_theme(colors.highlight),_0_4px_#0b0c0c] dark:shadow-[0_-2px_theme(colors.highlight),_0_4px_white];
+}
+ 
+@layer components {
+  .btn-focus {
+    @apply no-underline bg-highlight text-zinc-900 outline outline-4 outline-offset-1 outline-black  shadow-none border-white;
+  }
+  .btn-focus-dark {
+    @apply no-underline bg-highlight text-zinc-900 outline outline-4 outline-offset-1 outline-white  shadow-none border-black;
+  }
+  .accordion-focus {
+    @apply no-underline bg-highlight text-black ring-4 ring-black dark:ring-white outline-none border-0 !important;
+  }
+ }
+
+
+
+.rich-text-hero a {
+  @apply text-slate-600 hover:text-slate-800 font-bold underline dark:text-gray-400 dark:hover:text-gray-200;
+}
+
+.rich-text-banner {
+  @apply whitespace-pre-line;
+  a {
+    @apply underline;
+  }
+}
+
+.title {
+  @apply text-4xl leading-snug font-bold;
+}
+
+@media (min-width: 768px) {
+  .title {
+    @apply text-5xl;
+  }
+}

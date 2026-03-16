@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_elements_close_sign_ups",
+  "info": {
+    "displayName": "Close sign up",
+    "icon": "window-close",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "signUpEnabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "maxUsers": {
+      "type": "integer",
+      "min": 0,
+      "default": 4000
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

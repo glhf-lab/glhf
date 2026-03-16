@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "discord_users",
+  "info": {
+    "singularName": "discord-user",
+    "pluralName": "discord-users",
+    "displayName": "Discord User",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "discordId": {
+      "type": "string",
+      "unique": true
+    },
+    "discordIdHashed": {
+      "type": "string",
+      "unique": true
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

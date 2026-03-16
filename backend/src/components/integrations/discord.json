@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_integrations_discords",
+  "info": {
+    "displayName": "Discord",
+    "icon": "address-book",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "notConnected": {
+      "type": "component",
+      "repeatable": false,
+      "component": "discord.not-connected"
+    },
+    "connectedSuccess": {
+      "type": "component",
+      "repeatable": false,
+      "component": "discord.connected-success"
+    },
+    "connectedFail": {
+      "type": "component",
+      "repeatable": false,
+      "component": "discord.connected-fail"
+    },
+    "show": {
+      "type": "boolean"
+    }
+  }
+}
