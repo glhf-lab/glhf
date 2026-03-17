@@ -143,7 +143,7 @@ data/
   "details": null,
   "state": null,
   "applicationId": "000000000000000000",
-  "timestamps": { "start": "2023-06-22T11:34:45.189Z", "end": null },
+  "timestamps": { "start": "1687431285189", "end": null },
   "party": null,
   "assets": null,
   "flags": 0,
@@ -152,7 +152,7 @@ data/
   "createdTimestamp": 1687433138804,
   "userId": "a1b2c3d4e5f6...",
   "updateType": "isPlaying",
-  "saveTimeStamp": 1687433138871,
+  "saveTimeStamp": 1709030128069,
   "status": "online",
   "clientStatus": { "desktop": "online" }
 }
