@@ -11,7 +11,7 @@ const isProlificEmail = (identifier) => {
     return /^[a-f\d]{24}@email\.prolific\.co$/.test(identifier);
 };
 const isQualtricsPid = (identifier) => {
-    return /^.*@qualtrics$/.test(identifier);
+    return /^[A-Za-z0-9_-]+@qualtrics$/.test(identifier);
 };
 const isEmail = (identifier) => {
     return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(identifier);

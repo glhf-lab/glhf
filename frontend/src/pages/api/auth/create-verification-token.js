@@ -4,12 +4,20 @@ const AUTH_VERIFICATION_SECRET =
   process.env.NEXT_INTERNAL_AUTH_VERIFICATION_SECRET
 
 const verificationToken = async (req, res) => {
-  if (AUTH_VERIFICATION_SECRET === "") {
+  if (!AUTH_VERIFICATION_SECRET) {
     return res.status(405).send("Method not allowed")
   }
   if (req.method === "POST") {
     const authToken = (req.headers.authorization || "").split("Bearer ").at(1)
     const { identifier } = req.body
+
+    if (
+      typeof identifier !== "string" ||
+      identifier.length === 0 ||
+      identifier.length > 256
+    ) {
+      return res.status(400).json({ error: "Invalid identifier" })
+    }
 
     const providedBuf = Buffer.from(authToken || "")
     const secretBuf = Buffer.from(AUTH_VERIFICATION_SECRET)
@@ -36,9 +44,14 @@ const verificationToken = async (req, res) => {
           }),
         }
       )
+      if (!tokenRes.ok) {
+        return res
+          .status(tokenRes.status)
+          .json({ error: "Token creation failed" })
+      }
       return res.status(tokenRes.status).json(await tokenRes.json())
     }
-    return res.status(401).json({ error: "Invalid Auth Verification Secret" })
+    return res.status(401).json({ error: "Unauthorized" })
   } else {
     return res.status(405).send("Method not allowed")
   }
