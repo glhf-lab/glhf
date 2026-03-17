@@ -1,4 +1,4 @@
-# Contributing to GLHF
+# Contributing to Game Log Harvesting Framework
 
 Thanks for your interest in contributing! Please see our [Contributing Guide](https://glhf-lab.github.io/glhf/docs/contributing) for setup instructions, code style, and how to submit changes.
 
