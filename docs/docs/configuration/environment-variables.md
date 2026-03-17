@@ -147,7 +147,7 @@ GLHF uses environment variables for secrets, service connections, and feature fl
 | `NEXTAUTH_SECRET` | Shared secret with backend (**must match**) | |
 | `NEXTAUTH_URL` | NextAuth callback URL | `http://localhost:3000` |
 | `STRAPI_PASSWORDLESS_TOKEN` | Strapi API token for auth flow | _(from Strapi admin)_ |
-| `NEXT_INTERNAL_AUTH_VERIFICATION_SECRET` | Auth verification secret (for external services) | |
+| `NEXT_INTERNAL_AUTH_VERIFICATION_SECRET` | Shared secret for the [`create-verification-token`](/docs/integrations/survey-platforms#sign-in-url-generation-web-service) endpoint. Leave empty or unset to disable the endpoint. Generate with `openssl rand -hex 32` and share with the Qualtrics Web Service configuration. | |
 
 ### Sign-in Providers
 

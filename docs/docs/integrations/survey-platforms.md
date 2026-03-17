@@ -63,6 +63,72 @@ QUALTRICS_MESSAGE_REMINDER_ID=MS_...   # reminder email template
 
 The Qualtrics integration uses OAuth2 client credentials flow. Tokens are cached in memory (via `node-cache`) and automatically refreshed when expired. API calls use `axios-retry` with up to 3 retries and exponential backoff for rate limiting (HTTP 429).
 
+### Automatic Sign-up via Survey (Web Service) {#sign-in-url-generation-web-service}
+
+:::danger Experimental — not recommended for new studies
+This feature is experimental and may be removed or significantly changed in a future release. We recommend using the standard sign-up flow (email, Google, or Discord) for new studies until this endpoint has a more secure implementation.
+
+- **Token holder can act as any user** — Anyone with the shared access token can create accounts and generate login URLs for arbitrary identifiers. This means Qualtrics (or any service you share the token with) can create accounts and sign in as any user. Treat the token with the same care as a database credential.
+- **Login URLs are replayable** — The generated login URL is valid for 30 days and is stored in the participant's browser history. Anyone with access to their browser history can use the URL to sign in as that participant.
+- The endpoint is disabled by default — it is only active when `NEXT_INTERNAL_AUTH_VERIFICATION_SECRET` is set.
+:::
+
+As an alternative to the normal sign-up flow, participants can be **automatically signed up to GLHF** during a Qualtrics survey. A Qualtrics Web Service calls the GLHF platform to create an account and generate a login URL (valid for 30 days), which can be displayed to the participant at any point in the survey flow. This is completely separate from the standard email/Google/Discord sign-up — the participant never visits a registration page.
+
+#### Flow
+
+```mermaid
+sequenceDiagram
+    participant P as Participant
+    participant Q as Qualtrics
+    participant F as Next.js Frontend
+    participant B as Strapi Backend
+
+    P->>Q: Takes survey
+    Q->>F: POST /api/auth/create-verification-token<br/>(Bearer token + participant identifier)
+    F->>F: Validate bearer token (timing-safe comparison)
+    F->>B: POST /api/verification-tokens<br/>(Strapi API token)
+    B->>B: Create account + verification token (30-day expiry)
+    B-->>F: Token + login URL
+    F-->>Q: Login URL
+    Q-->>P: Redirect to login URL
+    P->>F: Opens login URL (auto-authenticated)
+```
+
+#### Qualtrics Web Service Setup
+
+1. In your Qualtrics survey flow, add a **Web Service** element at the point where you want to generate the login URL
+2. Configure the Web Service:
+   - **Method:** POST
+   - **URL:** `https://your-glhf-domain.com/api/auth/create-verification-token`
+   - **Headers:**
+     - `Content-Type: application/json`
+     - `Authorization: Bearer <your-verification-secret>`
+   - **Body (JSON):**
+     ```json
+     {
+       "identifier": "${e://Field/ResponseID}@qualtrics"
+     }
+     ```
+3. Set the `NEXT_INTERNAL_AUTH_VERIFICATION_SECRET` environment variable in the frontend to the same secret used in the `Authorization` header
+
+#### Request / Response Example
+
+**Request:**
+```bash
+curl -X POST https://your-glhf-domain.com/api/auth/create-verification-token \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer your-secret-here" \
+  -d '{"identifier": "R_abc123def456@qualtrics"}'
+```
+
+**Response (200):**
+```json
+{
+  "loginUrl": "https://your-glhf-domain.com/api/auth/callback/email?token=...&email=..."
+}
+```
+
 ---
 
 ## Prolific
