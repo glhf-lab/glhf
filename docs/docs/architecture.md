@@ -77,6 +77,113 @@ The backend communicates with the frontend via **GraphQL** (`/graphql`) and REST
 - **SQLite** in development (zero config)
 - **PostgreSQL** in production (via Docker)
 
+## Authentication
+
+Authentication uses [NextAuth](https://next-auth.js.org/) with a JWT session strategy and a custom `StrapiAdapter`. Three sign-in methods are supported: **email magic link**, **Google OAuth**, and **Discord OAuth**. Each is toggleable via environment variables (`EMAIL_SIGNIN_ENABLED`, `GOOGLE_SIGNIN_ENABLED`, `DISCORD_SIGNIN_ENABLED`).
+
+The backend never trusts tokens or credentials forwarded by the frontend — it independently verifies everything before issuing a Strapi JWT.
+
+### Email magic link flow
+
+```mermaid
+sequenceDiagram
+    participant P as Participant
+    participant F as Next.js Frontend
+    participant B as Strapi Backend
+    participant E as Email / Prolific
+
+    P->>F: Enter email, click sign in
+    F->>B: POST /api/verification-tokens<br/>(email, type: "email")<br/>Authorization: Bearer STRAPI_PASSWORDLESS_TOKEN
+    B->>B: Generate 32-byte random token<br/>Hash with SHA-256 + NEXTAUTH_SECRET<br/>Store hash in DB
+    B->>E: Send email with plaintext token URL
+    E->>P: Magic link email
+    P->>F: Click magic link
+    F->>B: POST /api/verification-tokens/verify<br/>(identifier, hashed token)<br/>Bearer STRAPI_PASSWORDLESS_TOKEN
+    B->>B: Look up hash in DB, check expiry
+    B-->>F: Verification result
+    F->>B: POST /api/users-permissions/auth/passwordless<br/>(email, plaintext token, type: "email")<br/>Bearer STRAPI_PASSWORDLESS_TOKEN
+    B->>B: Re-hash token, verify against DB<br/>Delete token (one-time use)<br/>Find or create user
+    B-->>F: Strapi JWT
+    F->>F: Store JWT in NextAuth session
+```
+
+### OAuth flow (Google / Discord)
+
+```mermaid
+sequenceDiagram
+    participant P as Participant
+    participant F as Next.js Frontend
+    participant O as OAuth Provider<br/>(Google / Discord)
+    participant B as Strapi Backend
+
+    P->>F: Click Google/Discord sign in
+    F->>O: OAuth redirect
+    O->>P: Consent screen
+    P->>O: Approve
+    O->>F: Redirect with authorization code
+    F->>O: Exchange code for access_token
+    F->>B: POST /api/users-permissions/auth/passwordless<br/>?access_token=...<br/>(provider, type: "oauth")<br/>Bearer STRAPI_PASSWORDLESS_TOKEN
+    B->>O: Independently call provider API<br/>with access_token to fetch profile
+    O-->>B: User profile (email)
+    B->>B: Find or create user by hashed email
+    B-->>F: Strapi JWT
+    F->>F: Store JWT in NextAuth session
+```
+
+### Backend trust model
+
+The backend independently validates every piece of authentication data:
+
+| What the frontend sends | How the backend validates it |
+|---|---|
+| Email verification token | Re-hashes with SHA-256 + `NEXTAUTH_SECRET`, checks against DB, enforces expiry, deletes after use (one-time) |
+| OAuth `access_token` | Calls the OAuth provider's API directly to fetch the user profile — never trusts the email from the frontend |
+| All auth requests | Gated by `hasTokenPermission` policy — requires a Strapi API token with the specific `getJwtFromEmail` permission |
+| Email addresses | Hashed with HMAC-SHA3-256 before storage and lookup — plaintext emails are never persisted |
+
+### The `STRAPI_PASSWORDLESS_TOKEN`
+
+This is a **Strapi API token** created in the admin panel, separate from participant authentication. It proves the caller is the authorized frontend, not an arbitrary client. All three auth flows above include it as a `Bearer` token. On the backend, the `hasTokenPermission` policy checks that the API token has the `plugin::users-permissions.auth.getJwtFromEmail` permission before allowing any auth request through.
+
+## Rate Limiting
+
+Rate limiting is implemented at two layers: the **frontend** (public-facing, per-IP and per-email) and the **backend** (defense-in-depth, per-identifier). They protect against different threat models.
+
+### Frontend (public-facing)
+
+The frontend rate limits protect against abuse from the public internet. Defined in `frontend/src/pages/api/auth/[...nextauth].js` and `frontend/src/pages/api/auth/create-verification-token.js`, using an LRU-cache-based limiter (`frontend/src/lib/rate-limiter.js`).
+
+| Limiter | Key | Limit | Window | Scope |
+|---------|-----|-------|--------|-------|
+| General NextAuth | Client IP | 30 req | 1 min | All NextAuth routes |
+| Email sign-in (IP) | Client IP | 10 req | 15 min | `POST .../signin/email` only |
+| Email sign-in (email) | Email address | 3 req | 15 min | `POST .../signin/email` only |
+| M2M token endpoint | Client IP (failed attempts) | 5 failures | 1 min interval, 15 min block | `POST /api/auth/create-verification-token` |
+
+**Design choices:**
+- Email sign-in limits return a **fake success response** (`200` with redirect URL) rather than `429`, to avoid leaking whether an email is registered
+- The M2M token endpoint uses a **failed-attempt limiter** — only failed auth attempts count, and exceeding the threshold blocks the IP for 15 minutes
+- OAuth sign-ins are not rate-limited on the frontend because the OAuth providers (Google, Discord) enforce their own rate limits on token exchanges
+
+### Backend
+
+Backend rate limits exist for the **compromised frontend** scenario — an attacker has obtained `STRAPI_PASSWORDLESS_TOKEN` and calls Strapi directly. Since the backend is not publicly exposed, all legitimate requests come from the frontend server's single IP, making IP-based limiting useless.
+
+Instead, limits are **per-identifier** (email or token identifier from the request body), implemented as a reusable Strapi policy (`backend/src/policies/rate-limit.js`). Tokens are 32-byte random, so brute-force protection here is more about anomaly detection.
+
+| Route | Key | Limit | Window | Rationale |
+|-------|-----|-------|--------|-----------|
+| `POST /api/verification-tokens` (create) | `body.identifier` | 3 req | 15 min | Caps token creation per email — limits email spam |
+| `POST /api/verification-tokens/verify` | `body.identifier` | 20 req | 1 min | Anomaly detection |
+| `POST /auth/passwordless` (email only) | `body.email` | 20 req | 1 min | Anomaly detection |
+
+**Design choices:**
+- **No IP-based fallback** — if no `keyFn` is provided, the policy logs a warning and allows the request through (fail-open with visibility), rather than silently using an ineffective IP key
+- **OAuth bypasses backend rate limiting** — OAuth requests to `/auth/passwordless` have no `email` in the body (the email is resolved from the OAuth provider inside the handler), so `keyFn` returns `undefined` and the request passes through. This is intentional: OAuth tokens can't be brute-forced, and the providers enforce their own limits
+- Rate limit keys are **hashed with a per-boot salt** before logging, so emails/identifiers don't appear in plaintext in logs
+
+Additionally, auth-related paths can be rate-limited at the edge (e.g. Cloudflare rate limiting rules) for IP-based protection before requests reach the application layer.
+
 ## Custom APIs
 
 Located in `backend/src/api/`, these handle platform-specific logic:

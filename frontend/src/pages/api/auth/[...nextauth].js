@@ -3,6 +3,18 @@ import GoogleProvider from "next-auth/providers/google"
 import EmailProvider from "next-auth/providers/email"
 import DiscordProvider from "next-auth/providers/discord"
 import { getToken } from "next-auth/jwt"
+import { getIpAddress, redactForLog } from "@/lib/get-ip-address"
+import { createRequestRateLimiter } from "@/lib/rate-limiter"
+
+const generalLimiter = createRequestRateLimiter({ limit: 30, window: 60_000 })
+const emailIpLimiter = createRequestRateLimiter({
+  limit: 10,
+  window: 15 * 60_000,
+})
+const emailAddrLimiter = createRequestRateLimiter({
+  limit: 3,
+  window: 15 * 60_000,
+})
 
 /** Web compatible method to create a hash, using SHA256 */
 export async function createHash(message) {
@@ -174,6 +186,46 @@ const providers = [
 const Auth = (req, res) => NextAuth(req, res, options)
 
 export default async function auth(req, res) {
+  const ip = getIpAddress(req)
+
+  // General rate limit: 30 req/min per IP
+  if (ip && generalLimiter.check(ip)) {
+    console.warn("Rate limit: NextAuth general limit exceeded", {
+      key: redactForLog(ip),
+    })
+    return res.status(429).json({ error: "Too many requests" })
+  }
+
+  // Email sign-in rate limits
+  const nextauth = req.query.nextauth || []
+  const isEmailSignIn =
+    req.method === "POST" &&
+    nextauth.includes("signin") &&
+    nextauth.includes("email")
+
+  if (isEmailSignIn) {
+    const email = req.body?.email?.toLowerCase?.()
+    const fakeSuccess = {
+      url: `${process.env.NEXTAUTH_URL}/login?verifyRequest=true#sign-up`,
+    }
+
+    // Per-IP limit: 10 email sign-ins per 15 min
+    if (ip && emailIpLimiter.check(ip)) {
+      console.warn("Rate limit: email sign-in per-IP limit exceeded", {
+        key: redactForLog(ip),
+      })
+      return res.status(200).json(fakeSuccess)
+    }
+
+    // Per-email limit: 3 per 15 min
+    if (email && emailAddrLimiter.check(email)) {
+      console.warn("Rate limit: email sign-in per-email limit exceeded", {
+        key: redactForLog(email),
+      })
+      return res.status(200).json(fakeSuccess)
+    }
+  }
+
   let signedInToken
   if (req.query.nextauth.includes("discord-link") && req.method === "GET") {
     signedInToken = await getToken({ req })

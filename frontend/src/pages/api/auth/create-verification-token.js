@@ -1,13 +1,36 @@
 import { timingSafeEqual } from "crypto"
+import { getIpAddress, redactForLog } from "@/lib/get-ip-address"
+import { createFailedAttemptLimiter } from "@/lib/rate-limiter"
 
 const AUTH_VERIFICATION_SECRET =
   process.env.NEXT_INTERNAL_AUTH_VERIFICATION_SECRET
+
+const failedAuthLimiter = createFailedAttemptLimiter({
+  limit: 5,
+  interval: 60_000,
+  blockDuration: 15 * 60_000,
+})
 
 const verificationToken = async (req, res) => {
   if (!AUTH_VERIFICATION_SECRET) {
     return res.status(405).send("Method not allowed")
   }
   if (req.method === "POST") {
+    const ip = getIpAddress(req)
+
+    // Require identifiable IP for M2M endpoint
+    if (!ip) {
+      return res.status(403).json({ error: "Forbidden" })
+    }
+
+    // Check if IP is blocked from failed auth attempts
+    if (failedAuthLimiter.isBlocked(ip)) {
+      console.warn("Rate limit: create-verification-token IP blocked", {
+        key: redactForLog(ip),
+      })
+      return res.status(401).json({ error: "Unauthorized" })
+    }
+
     const authToken = (req.headers.authorization || "").split("Bearer ").at(1)
     const { identifier } = req.body
 
@@ -51,6 +74,8 @@ const verificationToken = async (req, res) => {
       }
       return res.status(tokenRes.status).json(await tokenRes.json())
     }
+    // Record failed auth attempt
+    failedAuthLimiter.increment(ip)
     return res.status(401).json({ error: "Unauthorized" })
   } else {
     return res.status(405).send("Method not allowed")

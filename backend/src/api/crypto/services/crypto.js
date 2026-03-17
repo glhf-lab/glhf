@@ -54,8 +54,6 @@ module.exports = () => ({
             // we need to keep the prolific IDs so we can invite participants to answer
             // the survey using Prolific
             emailHashed = email;
-            console.log("hashEmail", email, emailHashed)
-
         }
 
         return emailHashed;

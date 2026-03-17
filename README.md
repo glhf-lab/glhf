@@ -1,10 +1,12 @@
-# GLHF — Game Log Harvesting Framework
+# Game Log Harvesting Framework
+
+### An open-source research tool for collecting digital trace data from gaming platforms
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/Node-18--20-green.svg)](https://nodejs.org/)
 [![Alpha](https://img.shields.io/badge/Status-Alpha-orange.svg)](https://glhf-lab.github.io/glhf/)
 
-An open-source research platform for collecting digital trace data from gaming platforms via data donation, built with Strapi and Next.js. GLHF collects play data from Steam via account linking, manages study participation workflows, and integrates with survey platforms (Qualtrics, Prolific).
+Built with Strapi and Next.js, GLHF collects play data from Steam via account linking, manages study participation workflows, and integrates with survey platforms (Qualtrics, Prolific).
 
 > **[Read the documentation →](https://glhf-lab.github.io/glhf/)**
 

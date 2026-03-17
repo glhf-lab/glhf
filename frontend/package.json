@@ -25,6 +25,7 @@
     "date-fns": "^3.6.0",
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
+    "lru-cache": "^11.1.0",
     "markdown-to-jsx": "^7.7.6",
     "next": "14.2.35",
     "next-auth": "4.24.11",

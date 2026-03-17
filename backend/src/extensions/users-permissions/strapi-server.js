@@ -265,7 +265,13 @@ module.exports = (plugin) => {
     path: "/auth/passwordless",
     handler: "auth.getJwtFromEmail",
     config: {
-      policies: ["plugin::users-permissions.hasTokenPermission"],
+      policies: [
+        "plugin::users-permissions.hasTokenPermission",
+        {
+          name: 'global::rate-limit',
+          config: { limit: 20, window: 60000, keyFn: (ctx) => ctx.request.body?.email },
+        },
+      ],
     },
   });
   return plugin;
