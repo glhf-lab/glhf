@@ -176,7 +176,6 @@ data/
 |----------|-------------|
 | `TOKEN` | Discord bot token |
 | `GUILD` | Discord server ID to monitor |
-| `GPS_URL` | GLHF instance URL (used in welcome messages) |
 | `HASH_IDS` | `true` to hash Discord user IDs with HMAC SHA3-256 |
 | `SECRET_HMAC_KEY` | HMAC key for hashing (must match GLHF backend for cross-referencing) |
 
@@ -188,14 +187,13 @@ The bot runs as a Docker container with a volume mount for persistent data stora
 services:
   bot:
     build: .
-    image: gps/discord-bot
+    image: glhf/discord-bot
     container_name: discord-bot
     volumes:
       - bot_data:/bot/data
     environment:
       - TOKEN
       - GUILD
-      - GPS_URL
       - HASH_IDS
       - SECRET_HMAC_KEY
 volumes:
