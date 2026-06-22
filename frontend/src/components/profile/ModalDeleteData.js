@@ -3,6 +3,7 @@ import Button from "@/components/elements/button"
 import Modal from "react-modal"
 import { useUser } from "src/utils/hooks"
 import RichText from "../sections/rich-text"
+import { isDemoMode } from "src/utils/demo"
 import { MdClose } from "react-icons/md"
 import { AiOutlineStop } from "react-icons/ai"
 import { Inter } from "next/font/google"
@@ -22,6 +23,7 @@ const ModalDeleteData = ({
     Modal.setAppElement("body")
   }, [])
   const handleSubmitDataDeletionRequest = async () => {
+    if (isDemoMode) return
     setUpdating(true)
     try {
       const res = await fetch("/api/user/data-deletion-request", {
@@ -98,8 +100,14 @@ const ModalDeleteData = ({
                 text: deleteDataModalButtonDeleteLabel,
               }}
               appearance={"dark-outline-warn"}
+              disabled={updating || isDemoMode}
             />
           </div>
+          {isDemoMode && (
+            <p className="px-6 pb-4 text-right text-sm text-slate-500 dark:text-slate-400">
+              Not available in the demo
+            </p>
+          )}
         </div>
       </Modal>
     </>

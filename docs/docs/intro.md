@@ -44,6 +44,10 @@ After deploying GLHF to their own server, researchers configure their study — 
 
 The researcher and participant each have their own interface. Researchers manage content through the [Strapi admin panel](configuration/cms-content) — from study name and [consent text](configuration/cms-content) to [study timelines and survey settings](configuration/study-parameters). Participants see a website tailored to the study. For a deeper look at how these components connect, see the [Architecture](architecture) overview.
 
+:::tip Try it yourself
+Explore the participant-facing study website in the [**live demo**](https://glhf-lab.github.io/glhf/demo/) — a static, backend-free build with sample data. No sign-up required.
+:::
+
 **Participant · Study Website**
 
 ![Participant profile dashboard](/img/screenshots/profile-dashboard.png)
@@ -58,6 +62,7 @@ GLHF is in early alpha. The platform is functional and has been used in research
 
 ## Next Steps
 
+- [**Live Demo**](https://glhf-lab.github.io/glhf/demo/) — Click through the participant study website with sample data
 - [**Getting Started**](getting-started) — Set up a local development environment and deploy
 - [**Architecture**](architecture) — Understand how the pieces fit together
 - [**Contributing**](contributing) — Help improve GLHF

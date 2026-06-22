@@ -8,7 +8,7 @@
 
 Built with Strapi and Next.js, GLHF collects play data from Steam via account linking, manages study participation workflows, and integrates with survey platforms (Qualtrics, Prolific).
 
-> **[Read the documentation →](https://glhf-lab.github.io/glhf/)**
+> **[Read the documentation →](https://glhf-lab.github.io/glhf/)** · **[Try the live demo →](https://glhf-lab.github.io/glhf/demo/)**
 
 ![GLHF participant dashboard showing study progress and Steam account linking](docs/static/img/screenshots/profile-dashboard.png)
 

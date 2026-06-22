@@ -1,0 +1,79 @@
+{
+  "data": {
+    "id": "1",
+    "attributes": {
+      "studyName": "GLHF Demo",
+      "metaTitleSuffix": "Game Log Harvesting Framework Demo",
+      "metadata": {
+        "metaTitle": "GLHF Study",
+        "metaDescription": "An interactive demo of the GLHF Study participant portal. No data is collected.",
+        "twitterCardType": "summary_large_image",
+        "twitterUsername": "",
+        "shareImage": {
+          "data": {
+            "id": "1",
+            "attributes": {
+              "alternativeText": "GLHF Study",
+              "width": 1200,
+              "height": 630,
+              "mime": "image/png",
+              "url": "https://placehold.co/1200x630/png?text=GLHF+Study+Demo",
+              "formats": {
+                "thumbnail": {
+                  "url": "https://placehold.co/1200x630/png?text=GLHF+Study+Demo",
+                  "width": 1200,
+                  "height": 630
+                }
+              }
+            }
+          }
+        }
+      },
+      "notificationBanner": {
+        "enabled": true,
+        "text": "This is a static demo. No data is collected and accounts cannot be linked."
+      },
+      "navbar": {
+        "logo": {
+          "logoImg": { "data": null },
+          "textTop": "Game Log",
+          "textBottom": "Harvesting Framework"
+        },
+        "links": [
+          { "id": "1", "url": "/", "newTab": false, "text": "Home" },
+          { "id": "2", "url": "/about", "newTab": false, "text": "About" },
+          { "id": "3", "url": "https://glhf-lab.github.io/glhf/", "newTab": false, "text": "Docs" }
+        ],
+        "button": {
+          "id": "1",
+          "url": "/login",
+          "newTab": false,
+          "text": "Sign in",
+          "type": "primary"
+        }
+      },
+      "footer": {
+        "smallText": "GLHF Study (demo) — a research project, not affiliated with Steam or Discord.",
+        "columns": [
+          {
+            "id": "1",
+            "title": "Study",
+            "links": [
+              { "id": "1", "url": "/", "newTab": false, "text": "Home" },
+              { "id": "2", "url": "/about", "newTab": false, "text": "About" },
+              { "id": "5", "url": "https://glhf-lab.github.io/glhf/", "newTab": false, "text": "Documentation" }
+            ]
+          },
+          {
+            "id": "2",
+            "title": "Account",
+            "links": [
+              { "id": "3", "url": "/login", "newTab": false, "text": "Sign in" },
+              { "id": "4", "url": "/profile", "newTab": false, "text": "Profile" }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

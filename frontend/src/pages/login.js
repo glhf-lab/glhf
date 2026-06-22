@@ -2,6 +2,7 @@ import { getGlobalData, getLoginPageData } from "src/utils/api"
 import Seo from "src/components/elements/seo"
 import Layout from "src/components/layout"
 import { useSession } from "next-auth/react"
+import { isDemoMode } from "src/utils/demo"
 import Markdown from "react-markdown"
 import Accordion from "@/components/sections/accordion"
 import SignInSection from "@/components/login/SignInSection"
@@ -59,7 +60,11 @@ const LoginPage = ({
 }
 
 export async function getStaticProps(context) {
-  const { locale, locales, defaultLocale, preview = null } = context
+  const { preview = null } = context
+  // i18n is disabled in demo, so locale fields from context are undefined.
+  const locale = isDemoMode ? "en" : context.locale
+  const locales = isDemoMode ? ["en"] : context.locales
+  const defaultLocale = isDemoMode ? "en" : context.defaultLocale
   const pageData = await getLoginPageData({ locale, preview })
   const globalLocale = await getGlobalData(locale)
   const pageContext = {
@@ -72,11 +77,13 @@ export async function getStaticProps(context) {
     pageData.attributes
   const emailProvider = []
   const oauthProviders = []
-  if (process.env.GOOGLE_SIGNIN_ENABLED === "true")
+  // Sign-in env vars are not set during the static export, so in demo mode force
+  // on the providers the demo shim supports (email + Google).
+  if (isDemoMode || process.env.GOOGLE_SIGNIN_ENABLED === "true")
     oauthProviders.push({ id: "google", name: "Google" })
   if (process.env.DISCORD_SIGNIN_ENABLED === "true")
     oauthProviders.push({ id: "discord", name: "Discord" })
-  if (process.env.EMAIL_SIGNIN_ENABLED === "true")
+  if (isDemoMode || process.env.EMAIL_SIGNIN_ENABLED === "true")
     emailProvider.push({ id: "email", name: "Email" })
 
   const providers = {
@@ -95,7 +102,8 @@ export async function getStaticProps(context) {
       providers,
       global: globalLocale.data,
     },
-    revalidate: 300,
+    // ISR is unsupported by `output: export`.
+    ...(isDemoMode ? {} : { revalidate: 300 }),
   }
 }
 

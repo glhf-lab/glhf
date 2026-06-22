@@ -25,6 +25,12 @@ function Hero() {
                 Get Started
               </Link>
               <Link
+                className="button button--secondary button--lg"
+                href="https://glhf-lab.github.io/glhf/demo/"
+              >
+                Live Demo
+              </Link>
+              <Link
                 className="button button--outline button--lg"
                 to="/docs/architecture"
               >

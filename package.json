@@ -12,7 +12,9 @@
     "clear": "cd frontend && rm -rf .next && rm -rf cache",
     "docs:install": "bash -c 'cd docs && yarn install'",
     "docs:start": "bash -c 'cd docs && yarn start'",
-    "docs:build": "bash -c 'cd docs && yarn build'"
+    "docs:build": "bash -c 'cd docs && yarn build'",
+    "demo:build": "yarn --cwd frontend build:demo",
+    "demo:snapshot": "yarn --cwd frontend snapshot:fixtures"
   },
   "devDependencies": {
     "cross-env": "7.0.3",

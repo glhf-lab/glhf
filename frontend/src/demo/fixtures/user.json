@@ -1,0 +1,51 @@
+{
+  "isLoggedIn": true,
+  "consentedToResearch": false,
+  "provider": "public",
+  "timezone": "Europe/Stockholm",
+  "uuid": "demo-0000-0000-0000-000000000000",
+  "dataDeletionRequest": false,
+  "requiredAccountsLinked": false,
+  "studyCompleted": false,
+  "activationDate": null,
+  "surveySendDate": null,
+  "surveyActivationDate": null,
+  "steamLinked": false,
+  "steamActivated": false,
+  "steamHasOwnedGames": false,
+  "steamHasRecentPlayedGames": false,
+  "discordLinked": false,
+  "qualtricsDistributionLink": "#",
+  "studyStatusContent": "Welcome to the GLHF Study demo! To get started, link your gaming accounts below. (In this demo the link buttons are disabled.)",
+  "progress": { "status": "notLinked", "index": 0 },
+  "stepper": {
+    "showLinkStep": true,
+    "showCheckPrivacyStep": true,
+    "showSurveyStep": true,
+    "showStudyCompletedStep": true,
+    "linkStepCompletedLabel": "Accounts linked",
+    "linkStepNotCompletedLabel": "Link your accounts",
+    "checkPrivacyStepCompletedLabel": "Privacy OK",
+    "checkPrivacyStepNotCompletedLabel": "Check privacy settings",
+    "surveyStepCompletedLabel": "Survey sent",
+    "surveyStepNotCompletedLabel": "Survey on {{surveySendDate}}",
+    "studyCompletedLabel": "Study complete"
+  },
+  "FAQ": {
+    "title": "Frequently asked questions",
+    "accordionItems": [
+      {
+        "id": "1",
+        "title": "What is this?",
+        "content": "A static demo of the GLHF Study participant portal. Nothing here is real and no data is stored.",
+        "showTo": "everyone"
+      },
+      {
+        "id": "2",
+        "title": "Why can't I link an account?",
+        "content": "Account linking is disabled in the demo. The buttons are shown so you can see the real layout.",
+        "showTo": "everyone"
+      }
+    ]
+  }
+}

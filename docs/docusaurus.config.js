@@ -64,6 +64,11 @@ const config = {
             label: 'Docs',
           },
           {
+            href: 'https://glhf-lab.github.io/glhf/demo/',
+            label: 'Live Demo',
+            position: 'right',
+          },
+          {
             href: 'https://github.com/glhf-lab/glhf',
             label: 'GitHub',
             position: 'right',
@@ -85,6 +90,10 @@ const config = {
           {
             title: 'More',
             items: [
+              {
+                label: 'Live Demo',
+                href: 'https://glhf-lab.github.io/glhf/demo/',
+              },
               {
                 label: 'GitHub',
                 href: 'https://github.com/glhf-lab/glhf',

@@ -1,0 +1,35 @@
+{
+  "id": "1",
+  "attributes": {
+    "metadata": {
+      "metaTitle": "Sign in",
+      "metaDescription": "Sign in to the GLHF Study demo with any email.",
+      "twitterCardType": "summary_large_image",
+      "twitterUsername": ""
+    },
+    "title": "Sign in",
+    "description": "This is an interactive **demo**. Enter any email address to explore the participant portal — no verification email is sent and no data is stored.",
+    "showLoginSection": true,
+    "closeSignUp": {
+      "signUpEnabled": true,
+      "description": ""
+    },
+    "FAQ": {
+      "title": "Frequently asked questions",
+      "accordionItems": [
+        {
+          "id": "1",
+          "title": "Is this the real study?",
+          "content": "No. This is a static demo of the participant portal. Nothing you enter here is saved or sent anywhere.",
+          "showTo": "everyone"
+        },
+        {
+          "id": "2",
+          "title": "Can I link my Steam or Discord account?",
+          "content": "Not in the demo. The account-linking buttons are shown but disabled so you can see how the real portal looks.",
+          "showTo": "everyone"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "id": "1",
+  "attributes": {
+    "title": "Profile",
+    "metadata": {
+      "metaTitle": "Profile",
+      "metaDescription": "Your GLHF Study participant profile (demo).",
+      "twitterCardType": "summary_large_image",
+      "twitterUsername": ""
+    },
+    "researchConsent": "## Informed consent\n\n*This is placeholder text for the demo.* In a real study, the full informed consent form would appear here, describing the study's purpose, what gameplay data is collected, how it is stored and used, and your rights as a participant — including that participation is voluntary and that you may withdraw at any time. Tick the box below and select **Continue** to see the rest of the participant portal.",
+    "accounts": [
+      {
+        "__typename": "ComponentIntegrationsSteam",
+        "id": "1",
+        "show": true,
+        "notConnected": {
+          "titleNotConnected": "Connect Steam",
+          "descriptionNotConnected": "Link your Steam account so we can collect your owned games and playtime.",
+          "buttonLabelNotConnected": "Link Steam"
+        },
+        "connectedSuccess": {
+          "title": "Steam connected",
+          "chip": "Active",
+          "description": "Your Steam account is linked and active."
+        },
+        "connectedFail": {
+          "title": "Steam connected",
+          "chip": "Privacy issue",
+          "description": "Your Steam profile privacy settings need attention.",
+          "feedbackFoundOwnedGames": "We found your owned games.",
+          "feedbackNoOwnedGames": "We could not find any owned games.",
+          "feedbackHasPlaytimePublic": "Your playtime is public.",
+          "feedbackHasPlaytimePrivate": "Your playtime is private.",
+          "feedbackFoundRecentlyPlayedGames": "We found recently played games.",
+          "feedbackNoRecentlyPlayedGames": "No recently played games found.",
+          "buttonLabelRecheck": "Re-check Steam"
+        }
+      },
+      {
+        "__typename": "ComponentIntegrationsDiscord",
+        "id": "2",
+        "show": true,
+        "notConnected": {
+          "titleNotConnected": "Connect Discord",
+          "descriptionNotConnected": "Link your Discord account to join the study server.",
+          "buttonLabelNotConnected": "Link Discord"
+        },
+        "connectedSuccess": {
+          "title": "Discord connected",
+          "chip": "Active",
+          "description": "Your Discord account is linked."
+        },
+        "connectedFail": {
+          "title": "Discord",
+          "chip": "Issue",
+          "description": "There was a problem linking Discord."
+        }
+      }
+    ],
+    "deleteAccount": {
+      "header": "Manage your participation",
+      "withdrawHeader": "Withdraw from the study",
+      "withdrawDescription": "You can withdraw your consent at any time.",
+      "withdrawButtonLabel": "Withdraw consent",
+      "deleteDataHeader": "Delete your data",
+      "deleteDataDescription": "Request deletion of all data we hold about you.",
+      "deleteDataButtonLabel": "Request data deletion",
+      "deleteDataModal": "Are you sure you want to request deletion of your data?",
+      "deleteDataModalHeader": "Delete data",
+      "deleteDataModalButtonCancelLabel": "Cancel",
+      "deleteDataModalButtonDeleteLabel": "Delete my data"
+    }
+  }
+}

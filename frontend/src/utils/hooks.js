@@ -2,6 +2,8 @@ import { useEffect } from "react"
 import Router from "next/router"
 import useSWR from "swr"
 import { useSession } from "next-auth/react"
+import { isDemoMode } from "src/utils/demo"
+import { demoUser } from "src/demo/data"
 
 // Got from https://usehooks.com/useLockBodyScroll/
 export function useLockBodyScroll() {
@@ -43,11 +45,34 @@ export function useUser({
   redirectIfFound = false,
   fallback = false,
 } = {}) {
-  const { data: user, mutate: mutateUser } = useSWR(
-    "/api/user/profile",
+  // In demo mode there is no
+  // /api/user/profile endpoint, so the SWR key is null (disabling the fetch)
+  // and the user is derived from the localStorage-backed demo session instead.
+  const { data: session, status } = useSession()
+  const { data: swrUser, mutate: swrMutate } = useSWR(
+    isDemoMode ? null : "/api/user/profile",
     (url) => fetch(url).then((res) => res.json()),
     { fallback }
   )
+
+  let user
+  let mutateUser
+  if (isDemoMode) {
+    // Leave user undefined while the session is still hydrating so callers show
+    // their loading state rather than briefly treating the visitor as signed out.
+    if (status === "loading") {
+      user = undefined
+    } else {
+      user = session?.user
+        ? { ...demoUser(), isLoggedIn: true, email: session.user.email }
+        : { isLoggedIn: false }
+    }
+    mutateUser = async () => user
+  } else {
+    user = swrUser
+    mutateUser = swrMutate
+  }
+
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
     // if user data not yet there (fetch in progress, logged in or not) then don't do anything yet

@@ -10,6 +10,8 @@
     "dev": "next",
     "develop": "next",
     "build": "next build",
+    "build:demo": "node scripts/build-demo.mjs",
+    "snapshot:fixtures": "node scripts/snapshot-demo-fixtures.mjs",
     "start": "node .next/standalone/server.js",
     "start-dev": "cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/ && yarn start",
     "lint": "next lint",

@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { getProfilePageData, getGlobalData } from "src/utils/api"
 import Seo from "src/components/elements/seo"
 import { useRouter } from "next/router"
@@ -12,6 +12,7 @@ import getProgress from "@/lib/profile/getProgress"
 import StudyStatus from "@/components/login/StudyStatus"
 import InformedConsent from "@/components/login/InformedConsent"
 import DeleteAccount from "@/components/profile/DeleteAccount"
+import { isDemoMode } from "src/utils/demo"
 
 const ProfilePage = ({
   title,
@@ -24,8 +25,19 @@ const ProfilePage = ({
   pageContext,
   fallback,
 }) => {
-  const { user } = useUser({ fallback })
-  const { FAQ, progress, studyStatusContent } = user
+  // In the static demo there is no middleware to gate /profile, so redirect
+  // signed-out visitors to /login (the redirect waits until the demo session
+  // has finished hydrating).
+  const { user } = useUser({
+    fallback,
+    redirectTo: isDemoMode ? "/login" : "",
+  })
+  const { FAQ, progress, studyStatusContent } = user || {}
+  // In the demo there is no backend to record consent, so track it in component
+  // state instead. It starts unconsented (showing the consent screen) and is
+  // not persisted across reloads.
+  const [demoConsented, setDemoConsented] = useState(false)
+  const hasConsented = isDemoMode ? demoConsented : user?.consentedToResearch
   const { data: session } = useSession()
   const router = useRouter()
   const { accountLinkError } = router.query
@@ -93,7 +105,7 @@ const ProfilePage = ({
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadataWithDefaults} />
       {/* Display content sections */}
-      {user?.consentedToResearch ? (
+      {hasConsented ? (
         <>
           <div className="container prose prose-lg gap-4 py-12 dark:prose-invert">
             <StudyStatus
@@ -122,13 +134,16 @@ const ProfilePage = ({
         </>
       ) : (
         user?.dataDeletionRequest !== true && (
-          <InformedConsent content={researchConsent} />
+          <InformedConsent
+            content={researchConsent}
+            onConsent={() => setDemoConsented(true)}
+          />
         )
       )}
       <div className="container prose prose-lg py-12 dark:prose-invert">
         <h2>{FAQ.title}</h2>
         <Accordion items={FAQ?.accordionItems} provider={provider} />
-        <DeleteAccount content={deleteAccount} />
+        <DeleteAccount content={deleteAccount} consented={hasConsented} />
         <p className="prose-sm text-center text-slate-500 dark:text-slate-400">
           Unique identifier: &quot;{user.uuid}&quot;
         </p>
@@ -138,7 +153,11 @@ const ProfilePage = ({
 }
 
 export async function getStaticProps(context) {
-  const { params, locale, locales, defaultLocale, preview = null } = context
+  const { params, preview = null } = context
+  // i18n is disabled in demo, so locale fields from context are undefined.
+  const locale = isDemoMode ? "en" : context.locale
+  const locales = isDemoMode ? ["en"] : context.locales
+  const defaultLocale = isDemoMode ? "en" : context.defaultLocale
   const pageData = await getProfilePageData({ locale, preview })
   const globalLocale = await getGlobalData(locale)
   const pageContext = {
@@ -164,7 +183,8 @@ export async function getStaticProps(context) {
         },
       },
     },
-    revalidate: 300,
+    // ISR is unsupported by `output: export`.
+    ...(isDemoMode ? {} : { revalidate: 300 }),
   }
 }
 

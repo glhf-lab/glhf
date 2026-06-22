@@ -1,4 +1,6 @@
 import qs from "qs"
+import { isDemoMode } from "src/utils/demo"
+import { demoGlobal, demoLogin, demoPage, demoProfile } from "src/demo/data"
 
 export function getStrapiURL(path) {
   return `${
@@ -48,6 +50,7 @@ export async function fetchAPI(path, urlParamsObject = {}, options = {}) {
  * @param {boolean} options.preview router isPreview value
  */
 export async function getPageData({ slug, locale, preview }) {
+  if (isDemoMode) return demoPage(slug)
   // Find the pages that match this slug
   const gqlEndpoint = getStrapiURL("/graphql")
   try {
@@ -255,6 +258,7 @@ export async function getPageData({ slug, locale, preview }) {
  * @param {boolean} options.preview router isPreview value
  */
 export async function getProfilePageData({ locale, preview }) {
+  if (isDemoMode) return demoProfile()
   // Find the pages that match this slug
   const gqlEndpoint = getStrapiURL("/graphql")
   const pagesRes = await fetch(gqlEndpoint, {
@@ -360,6 +364,7 @@ export async function getProfilePageData({ locale, preview }) {
  * @param {boolean} options.preview router isPreview value
  */
 export async function getLoginPageData({ locale, preview }) {
+  if (isDemoMode) return demoLogin()
   // Find the pages that match this slug
   const gqlEndpoint = getStrapiURL("/graphql")
   const pagesRes = await fetch(gqlEndpoint, {
@@ -413,6 +418,7 @@ export async function getLoginPageData({ locale, preview }) {
 
 // Get site data from Strapi (metadata, navbar, footer...)
 export async function getGlobalData(locale) {
+  if (isDemoMode) return demoGlobal()
   const gqlEndpoint = getStrapiURL("/graphql")
   const globalRes = await fetch(gqlEndpoint, {
     method: "POST",

@@ -1,13 +1,25 @@
 import { useState } from "react"
 import RichText from "../sections/rich-text"
 import { useUser } from "src/utils/hooks"
-const InformedConsent = ({ content }) => {
+import { isDemoMode } from "src/utils/demo"
+const InformedConsent = ({ content, onConsent }) => {
   const { user, mutateUser } = useUser()
   const [loading, setLoading] = useState(false)
   const [consentChecked, setChecked] = useState(false)
+  const scrollToTop = () =>
+    document
+      .getElementById("main-content")
+      ?.scrollIntoView({ behavior: "smooth" })
   const handleSubmitConsent = async (e) => {
     e.preventDefault()
     setLoading(true)
+    // The static demo has no backend to record consent, so just advance the
+    // in-page view (the choice is not persisted across reloads).
+    if (isDemoMode) {
+      onConsent?.()
+      scrollToTop()
+      return
+    }
     try {
       const res = await fetch("/api/user/consent", {
         method: "PUT",
@@ -16,9 +28,7 @@ const InformedConsent = ({ content }) => {
         throw await res.json()
       }
       mutateUser({ ...user, consentedToResearch: true })
-      document
-        .getElementById("main-content")
-        .scrollIntoView({ behavior: "smooth" })
+      scrollToTop()
     } catch (error) {
       console.log("Error updating consent")
     }

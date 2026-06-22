@@ -1,0 +1,209 @@
+[
+  {
+    "id": "1",
+    "attributes": {
+      "locale": "en",
+      "slug": "",
+      "localizations": { "data": [] },
+      "metadata": {
+        "metaTitle": "Home",
+        "metaDescription": "Contribute to science by playing video games.",
+        "twitterCardType": "summary_large_image",
+        "twitterUsername": "",
+        "shareImage": { "data": null }
+      },
+      "contentSections": [
+        {
+          "__typename": "ComponentSectionsHero",
+          "id": "1",
+          "label": "Research study",
+          "title": "Welcome to the GLHF Demo",
+          "description": "Contribute to science by playing video games.",
+          "smallTextWithLink": "Already a participant? [Sign in](/glhf/demo/login). This is an interactive demo — no data is collected.",
+          "pictureCredit": "Photo by [Lorenzo Herrera](https://unsplash.com/@lorenzoherrera) on Unsplash",
+          "buttons": [
+            { "id": "1", "url": "/login", "newTab": false, "text": "Join", "type": "primary" },
+            { "id": "2", "url": "/about", "newTab": false, "text": "Study information", "type": "secondary" }
+          ],
+          "picture": {
+            "data": {
+              "id": "1",
+              "attributes": {
+                "alternativeText": "Vintage gray game console and assorted computer equipment",
+                "width": 1600,
+                "height": 928,
+                "mime": "image/jpeg",
+                "url": "/glhf/demo/demo/hero.jpg"
+              }
+            }
+          }
+        },
+        {
+          "__typename": "ComponentSectionsTeam",
+          "id": "1",
+          "title": "Our team",
+          "description": "We are an international team of researchers enthusiastic about video game science.",
+          "teamMember": [
+            {
+              "id": "1",
+              "name": "Harrier Du Bois",
+              "title": "Professor",
+              "links": [
+                { "id": "1", "url": "https://example.com", "icon": "website" },
+                { "id": "2", "url": "https://example.com", "icon": "twitter" }
+              ],
+              "picture": {
+                "data": {
+                  "id": "1",
+                  "attributes": {
+                    "alternativeText": "Harrier Du Bois",
+                    "width": 256,
+                    "height": 256,
+                    "mime": "image/png",
+                    "url": "https://ui-avatars.com/api/?name=Harrier+Du+Bois&size=256&background=D1D5DB&color=6B7280"
+                  }
+                }
+              }
+            },
+            {
+              "id": "2",
+              "name": "Kim Kitsuragi",
+              "title": "Founder | PhD",
+              "links": [
+                { "id": "1", "url": "https://example.com", "icon": "website" },
+                { "id": "2", "url": "https://example.com", "icon": "github" }
+              ],
+              "picture": {
+                "data": {
+                  "id": "2",
+                  "attributes": {
+                    "alternativeText": "Kim Kitsuragi",
+                    "width": 256,
+                    "height": 256,
+                    "mime": "image/png",
+                    "url": "https://ui-avatars.com/api/?name=Kim+Kitsuragi&size=256&background=D1D5DB&color=6B7280"
+                  }
+                }
+              }
+            },
+            {
+              "id": "3",
+              "name": "Klaasje Amandou",
+              "title": "Assistant Professor",
+              "links": [
+                { "id": "1", "url": "https://example.com", "icon": "website" },
+                { "id": "2", "url": "https://example.com", "icon": "twitter" }
+              ],
+              "picture": {
+                "data": {
+                  "id": "3",
+                  "attributes": {
+                    "alternativeText": "Klaasje Amandou",
+                    "width": 256,
+                    "height": 256,
+                    "mime": "image/png",
+                    "url": "https://ui-avatars.com/api/?name=Klaasje+Amandou&size=256&background=D1D5DB&color=6B7280"
+                  }
+                }
+              }
+            },
+            {
+              "id": "4",
+              "name": "Cuno",
+              "title": "Research Associate",
+              "links": [
+                { "id": "1", "url": "https://example.com", "icon": "github" }
+              ],
+              "picture": {
+                "data": {
+                  "id": "4",
+                  "attributes": {
+                    "alternativeText": "Cuno",
+                    "width": 256,
+                    "height": 256,
+                    "mime": "image/png",
+                    "url": "https://ui-avatars.com/api/?name=Cuno&size=256&background=D1D5DB&color=6B7280"
+                  }
+                }
+              }
+            },
+            {
+              "id": "5",
+              "name": "Evrart Claire",
+              "title": "Postdoc",
+              "links": [
+                { "id": "1", "url": "https://example.com", "icon": "twitter" },
+                { "id": "2", "url": "https://example.com", "icon": "github" }
+              ],
+              "picture": {
+                "data": {
+                  "id": "5",
+                  "attributes": {
+                    "alternativeText": "Evrart Claire",
+                    "width": 256,
+                    "height": 256,
+                    "mime": "image/png",
+                    "url": "https://ui-avatars.com/api/?name=Evrart+Claire&size=256&background=D1D5DB&color=6B7280"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "__typename": "ComponentSectionsLogos",
+          "id": "1",
+          "title": "Affiliations",
+          "description": "",
+          "logos": [
+            {
+              "title": "University Logo",
+              "logo": {
+                "data": {
+                  "id": "1",
+                  "attributes": {
+                    "alternativeText": "University Logo",
+                    "width": 400,
+                    "height": 120,
+                    "mime": "image/png",
+                    "url": "https://placehold.co/400x120?text=University+Logo"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "__typename": "ComponentSectionsBottomActions",
+          "id": "1",
+          "title": "Read the documentation",
+          "buttons": [
+            { "id": "1", "url": "https://glhf-lab.github.io/glhf/", "newTab": false, "text": "Docs", "type": "primary" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "2",
+    "attributes": {
+      "locale": "en",
+      "slug": "about",
+      "localizations": { "data": [] },
+      "metadata": {
+        "metaTitle": "About",
+        "metaDescription": "About the GLHF Study.",
+        "twitterCardType": "summary_large_image",
+        "twitterUsername": "",
+        "shareImage": { "data": null }
+      },
+      "contentSections": [
+        {
+          "__typename": "ComponentSectionsRichText",
+          "id": "1",
+          "content": "# About the study\n\nThe GLHF Study investigates gaming behavior and well-being. Participants link their gaming accounts so researchers can study playtime patterns alongside survey responses.\n\nThis page is part of a **static demo** — the content shown here is illustrative only.\n"
+        }
+      ]
+    }
+  }
+]

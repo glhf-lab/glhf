@@ -5,6 +5,7 @@ import { Formik, Form, Field } from "formik"
 import * as yup from "yup"
 import isProlificEmail from "@/lib/isProlificEmail"
 import { signIn } from "next-auth/react"
+import { isDemoMode } from "src/utils/demo"
 
 const EmailSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -42,6 +43,13 @@ const EmailSignInForm = ({ prolificId }) => {
               email: values.email,
               redirect: false,
             })
+            // No verification email in the demo
+            if (isDemoMode) {
+              router.push("/profile")
+              setLoading(false)
+              setSubmitting(false)
+              return
+            }
             if (res?.error) {
               setErrors({ api: "Error: Email could not be sent" })
               setVerifyRequest(false)

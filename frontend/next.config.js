@@ -1,4 +1,28 @@
-module.exports = {
+const path = require("path")
+
+const isDemo = process.env.NEXT_PUBLIC_DEMO_MODE === "true"
+
+// Demo mode: a fully static, backend-free export bundled into the docs site at
+// /glhf/demo/. i18n routing and the image optimizer are unsupported by
+// `output: export`, and every `next-auth/react` import is swapped for a
+// localStorage-backed shim so auth works without a server.
+const demoConfig = {
+  output: "export",
+  trailingSlash: true,
+  basePath: "/glhf/demo",
+  images: {
+    unoptimized: true,
+  },
+  webpack: (config) => {
+    config.resolve.alias["next-auth/react"] = path.resolve(
+      __dirname,
+      "src/demo/next-auth-react.js"
+    )
+    return config
+  },
+}
+
+const prodConfig = {
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
@@ -25,3 +49,5 @@ module.exports = {
   },
   output: "standalone",
 }
+
+module.exports = isDemo ? demoConfig : prodConfig

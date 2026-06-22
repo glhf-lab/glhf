@@ -5,6 +5,8 @@ import Seo from "src/components/elements/seo"
 import { useRouter } from "next/router"
 import Layout from "src/components/layout"
 import { getLocalizedPaths } from "src/utils/localize"
+import { isDemoMode } from "src/utils/demo"
+import { demoPageSlugs } from "src/demo/data"
 
 const DynamicPage = ({ sections, metadata, preview, global, pageContext }) => {
   const router = useRouter()
@@ -39,6 +41,14 @@ const DynamicPage = ({ sections, metadata, preview, global, pageContext }) => {
 }
 
 export async function getStaticPaths(context) {
+  if (isDemoMode) {
+    // i18n is disabled in demo, so build paths from fixtures without locales.
+    // fallback must be false under `output: export`.
+    const paths = demoPageSlugs().map(({ slug }) => ({
+      params: { slug: slug ? slug.split("/") : [] },
+    }))
+    return { paths, fallback: false }
+  }
   // Get all pages from Strapi
   const pages = await context.locales.reduce(
     async (currentPagesPromise, locale) => {
@@ -68,7 +78,11 @@ export async function getStaticPaths(context) {
 }
 
 export async function getStaticProps(context) {
-  const { params, locale, locales, defaultLocale, preview = null } = context
+  const { params, preview = null } = context
+  // i18n is disabled in demo, so locale fields from context are undefined.
+  const locale = isDemoMode ? "en" : context.locale
+  const locales = isDemoMode ? ["en"] : context.locales
+  const defaultLocale = isDemoMode ? "en" : context.defaultLocale
 
   const globalLocale = await getGlobalData(locale)
   // Fetch pages. Include drafts if preview mode is on
@@ -106,7 +120,8 @@ export async function getStaticProps(context) {
         localizedPaths,
       },
     },
-    revalidate: 300,
+    // ISR is unsupported by `output: export`.
+    ...(isDemoMode ? {} : { revalidate: 300 }),
   }
 }
 

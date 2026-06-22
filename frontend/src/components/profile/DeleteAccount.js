@@ -3,8 +3,15 @@ import Button from "@/components/elements/button"
 import { useUser } from "src/utils/hooks"
 import RichText from "../sections/rich-text"
 import ModalDeleteData from "./ModalDeleteData"
+import { isDemoMode } from "src/utils/demo"
 
-const DeleteAccount = ({ content }) => {
+const DemoNote = () => (
+  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+    Not available in the demo
+  </p>
+)
+
+const DeleteAccount = ({ content, consented }) => {
   const { user, mutateUser } = useUser()
   const [updating, setUpdating] = useState(false)
   const {
@@ -21,6 +28,7 @@ const DeleteAccount = ({ content }) => {
     deleteDataModalButtonDeleteLabel,
   } = content
   const handleSubmitConsent = async () => {
+    if (isDemoMode) return
     setUpdating(true)
     try {
       const res = await fetch("/api/user/consent", {
@@ -40,7 +48,7 @@ const DeleteAccount = ({ content }) => {
   return (
     <div>
       <h2>{header}</h2>
-      {user?.consentedToResearch && (
+      {consented && (
         <>
           <h3>{withdrawHeader}</h3>
           <RichText data={{ content: withdrawDescription }} compact />
@@ -50,8 +58,9 @@ const DeleteAccount = ({ content }) => {
               text: updating ? "Loading" : withdrawButtonLabel,
             }}
             appearance={"dark-outline-warn"}
-            disabled={updating}
+            disabled={updating || isDemoMode}
           />
+          {isDemoMode && <DemoNote />}
         </>
       )}
 
